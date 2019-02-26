@@ -1,6 +1,7 @@
 package movies.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import movies.data.MovieDao;
 import movies.data.MovieRepository;
@@ -17,7 +18,26 @@ public class MovieService {
 	}
 
 	public List<Movie> findMoviesByGenre(Genre genre) {
-		return movieRepository.findAll();
+		return movieRepository
+				.findAll()
+				.stream()
+				.filter(movie -> movie.getGenre() == genre)
+				.collect(Collectors.toList());
 	}
 
+	public List<Movie> findMoviesByLength(int length) {
+		return movieRepository
+				.findAll()
+				.stream()
+				.filter(movie -> movie.getMinutes() <= length)
+				.collect(Collectors.toList());
+	}
+
+	public List<Movie> findMovieByName(String name){
+		return movieRepository
+				.findAll()
+				.stream()
+				.filter(movie -> movie.getName().toLowerCase().contains(name))
+				.collect(Collectors.toList());
+	}
 }

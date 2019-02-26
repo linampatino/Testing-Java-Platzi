@@ -1,5 +1,7 @@
 package movies.model;
 
+import java.util.Objects;
+
 import lombok.Data;
 
 @Data
@@ -22,5 +24,27 @@ public class Movie {
 		this.genre = genre;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		
+		if (this == obj)
+			return true;
+		
+		if (obj == null || getClass() != obj.getClass())
+			return false;
+					
+		Movie other = (Movie) obj;
+		return genre == other.genre 
+				&& Objects.equals(id, other.id) 
+				&& Objects.equals(name, other.name)
+				&& minutes == other.minutes;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, name, minutes, genre);
+	}
+
+	
 	
 }
